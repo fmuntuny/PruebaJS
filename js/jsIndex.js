@@ -14,9 +14,11 @@ activaBD.addEventListener('click', () => {
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
 document.addEventListener('DOMContentLoaded', ()=>{
-    if (localStorage.getItem("usuario")) { 
+    if (localStorage.getItem("carrito")) { 
         carrito = JSON.parse(localStorage.getItem("carrito"));
-        user = JSON.parse(localStorage.getItem("user"));
+    }
+    if (localStorage.getItem("usuario")) { 
+        user = JSON.parse(localStorage.getItem("usuario"));
     }
     fetchdata()
 })
