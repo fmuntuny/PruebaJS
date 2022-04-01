@@ -12,10 +12,11 @@ let user = {}
 document.addEventListener('DOMContentLoaded', ()=>{
     if (localStorage.getItem("carrito")) { 
         carrito = JSON.parse(localStorage.getItem("carrito"));
-        user = JSON.parse(localStorage.getItem("usuario"));
-        pintarCarrito()
     }
-    
+    if (localStorage.getItem("usuario")) { 
+        user = JSON.parse(localStorage.getItem("usuario"));
+    }
+    pintarCarrito()
 })
 
 //DETECTA EL CLICK EN LOS BOTONES DE SUMAR O RESTAR CANTIDADES
