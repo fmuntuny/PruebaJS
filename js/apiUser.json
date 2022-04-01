@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "nombre": "Federico",
+      "apellido": "Saracatunca",
+      "direccion":"Republica de Chuwaca 765",
+      "telefono": "22222222222",
+      "mail": "fchuwaca@gmail.com",
+      "fechaAlta": "31/03/2022"
+    },
+    {
+      "id": 2,
+      "nombre": "Ernestina",
+      "apellido": "Sarmiento",
+      "direccion":"Cochabamba 34",
+      "telefono": "33333333333",
+      "mail": "esarmiento@gmail.com",
+      "fechaAlta": "31/03/2022"
+    }
+]

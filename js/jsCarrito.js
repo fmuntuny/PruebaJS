@@ -1,15 +1,18 @@
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
+const envios = document.getElementById('footer-envio')
 const templateCarrito = document.getElementById('template-carrito').content
 const templateFooter = document.getElementById('template-footer').content
+const templateEnvio = document.getElementById('template-envio').content
 const fragment = document.createDocumentFragment()
-
 let carrito = {}
+let user = {}
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 document.addEventListener('DOMContentLoaded', ()=>{
-    if (localStorage.getItem("usuario")) { 
-        carrito = JSON.parse(localStorage.getItem("usuario"));
+    if (localStorage.getItem("carrito")) { 
+        carrito = JSON.parse(localStorage.getItem("carrito"));
+        user = JSON.parse(localStorage.getItem("usuario"));
         pintarCarrito()
     }
     
@@ -35,13 +38,14 @@ Object.values(carrito).forEach(prod =>{
     fragment.appendChild(clone)
 })
 items.appendChild(fragment)
-pintarFooter()
-localStorage.setItem("usuario", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
+    pintarFooter()
+localStorage.setItem("carrito", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
 }
 
 const pintarFooter = () => {
     if (Object.keys(carrito).length === 0) {
         footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
+        envios.innerHTML=''
         return
     } 
     footer.innerHTML=''
@@ -57,6 +61,7 @@ const pintarFooter = () => {
             carrito = {}
             pintarCarrito()
         })
+        pintarEnvio()
 }
 const btnAccion = e => { 
     if (e.target.classList.contains('btn-info')) { 
@@ -76,3 +81,16 @@ const btnAccion = e => {
     e.stopPropagation()
 }
 
+//FALTA HACER EL PINTAENVIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*********************************************
+const pintarEnvio = () => { 
+    envios.innerHTML=''
+    templateEnvio.getElementById('nombre').textContent = user.nombre
+    templateEnvio.getElementById('apellido').textContent = user.apellido
+    templateEnvio.getElementById('direccion').textContent = user.direccion
+    templateEnvio.getElementById('telefono').textContent = user.telefono
+    templateEnvio.getElementById('costo').textContent = 600
+    templateEnvio.getElementById('total-costo').textContent = Number(document.getElementById('total-compra').textContent) + 600
+    const clone = templateEnvio.cloneNode(true)
+    fragment.appendChild(clone)
+    envios.appendChild(fragment)
+}
