@@ -5,6 +5,7 @@ const templateCarrito = document.getElementById('template-carrito').content
 const templateFooter = document.getElementById('template-footer').content
 const templateEnvio = document.getElementById('template-envio').content
 const fragment = document.createDocumentFragment()
+let totalCompra=""
 let carrito = {}
 let user = {}
 
@@ -15,6 +16,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
     if (localStorage.getItem("usuario")) { 
         user = JSON.parse(localStorage.getItem("usuario"));
+    }
+    if (localStorage.getItem("totalCompra")) {
+        totalCompra = localStorage.getItem("totalCompra")
+        document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
+    } else { 
+        localStorage.setItem("totalCompra", 0)
+        totalCompra = 0
+        document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
     }
     pintarCarrito()
 })
@@ -39,14 +48,15 @@ Object.values(carrito).forEach(prod =>{
     fragment.appendChild(clone)
 })
 items.appendChild(fragment)
-    pintarFooter()
-localStorage.setItem("carrito", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
+pintarFooter()
+    localStorage.setItem("carrito", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
+    document.getElementById('totalCompraNav').innerHTML=`$ ${totalCompra}`
 }
 
 const pintarFooter = () => {
     if (Object.keys(carrito).length === 0) {
         footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
-        envios.innerHTML=''
+        envios.innerHTML = ''
         return
     } 
     footer.innerHTML=''
@@ -61,6 +71,9 @@ const pintarFooter = () => {
         btnVaciarCarrito.addEventListener('click', () => {
             carrito = {}
             pintarCarrito()
+                    totalCompra = 0
+        localStorage.setItem("totalCompra", totalCompra)
+        document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
         })
         pintarEnvio()
 }
@@ -69,20 +82,25 @@ const btnAccion = e => {
         const producto = carrito[e.target.dataset.id]
         producto.cantidad ++
         carrito[e.target.dataset.id] = { ...producto }
+        totalCompra = totalCompra + producto.precio
+        localStorage.setItem("totalCompra",totalCompra)
         pintarCarrito()
     }
     if (e.target.classList.contains('btn-danger')) { 
         const producto = carrito[e.target.dataset.id]
         producto.cantidad--
+        totalCompra = totalCompra - producto.precio
+        localStorage.setItem("totalCompra", totalCompra)
         if (producto.cantidad === 0) { 
             delete carrito[e.target.dataset.id]
         }
+        
         pintarCarrito()
     }
     e.stopPropagation()
 }
 
-//FALTA HACER EL PINTAENVIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!1*********************************************
+//PINTA LA TABLA DEL ENVIO
 const pintarEnvio = () => { 
     envios.innerHTML=''
     templateEnvio.getElementById('nombre').textContent = user.nombre
