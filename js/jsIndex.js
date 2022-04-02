@@ -2,23 +2,23 @@ const cards = document.getElementById('cards')
 const templateCard = document.getElementById('template-card').content
 const fragment = document.createDocumentFragment()
 const totalCompraNav = document.getElementById('totalCompraNav').textContent
-let totalCompra=""
+let totalCompra = ""
 let carrito = {}//AL CARGAR LA PÁGINA ESTE ARRAY SE TIENE QUE CARGAR CON TODOS LOS PRODUCTOS DE LA INDEXEDDB DEL CLIENTE
 let user = {}
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
-document.addEventListener('DOMContentLoaded', ()=>{
-    if (localStorage.getItem("carrito")) { 
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem("carrito")) {
         carrito = JSON.parse(localStorage.getItem("carrito"))
     }
-    if (localStorage.getItem("usuario")) { 
+    if (localStorage.getItem("usuario")) {
         user = JSON.parse(localStorage.getItem("usuario"))
     }
     if (localStorage.getItem("totalCompra")) {
         totalCompra = localStorage.getItem("totalCompra")
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
-    } else { 
+    } else {
         localStorage.setItem("totalCompra", 0)
         totalCompra = 0
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     fetchdata()
 })
 //DETECTA EL CLIC EN EL BOTON DE LOS PRODUCTOS PARA AGREGARLOS AL CARRITO
-cards.addEventListener('click', e =>{
+cards.addEventListener('click', e => {
     addCarrito(e)
 })
 const fetchdata = async () => {
@@ -37,8 +37,8 @@ const fetchdata = async () => {
         pintarCards(dataPro)
         const resUser = await fetch('js/apiUser.json')
         const dataUser = await resUser.json()
-        dataUser.forEach(u => { 
-            if (u.id===1) {//*********************SERÍA IF(IDQUEVIENEDELLOGIN === U.ID)**********************************
+        dataUser.forEach(u => {
+            if (u.id === 1) {//*********************SERÍA IF(IDQUEVIENEDELLOGIN === U.ID)**********************************
                 user = {
                     id: u.id,
                     nombre: u.nombre,
@@ -62,7 +62,7 @@ const pintarCards = (data) => {
         templateCard.getElementById('titulo').textContent = producto.title
         templateCard.getElementById('descripcion').textContent = producto.descripcion
         templateCard.getElementById('precio').textContent = "Precio: $ " + producto.precio
-        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.calificacion      
+        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.calificacion
         templateCard.querySelector('img').setAttribute("src", producto.thumbnailUrl)
         templateCard.querySelector('.btn-info').dataset.id = producto.id
         templateCard.querySelector('.btn-danger').dataset.id = producto.id
@@ -75,7 +75,7 @@ const pintarCards = (data) => {
                     templateCard.getElementById('cantidad').textContent = "Cantidad: 0"
                 }
             })
-        } else { 
+        } else {
             templateCard.getElementById('cantidad').textContent = "Cantidad: 0"
         }
         const clone = templateCard.cloneNode(true)
@@ -87,7 +87,7 @@ const pintarCards = (data) => {
 const addCarrito = (e) => {
     if (e.target.classList.contains('btn-info')) {
         setCarrito(e.target.parentElement, 1)
-    } else if (e.target.classList.contains('btn-danger')) { 
+    } else if (e.target.classList.contains('btn-danger')) {
         setCarrito(e.target.parentElement, -1)
     }
     e.stopPropagation()
@@ -113,7 +113,7 @@ const setCarrito = (objeto, cant) => {
             objeto.querySelector('#cantidad').textContent = "Cantidad: " + producto.cantidad
             if (cant === 1) {
                 totalCompra = Number(totalCompra) + Number(producto.precio)
-            } else if (cant===-1) { 
+            } else if (cant === -1) {
                 totalCompra = Number(totalCompra) - Number(producto.precio)
             }
         } else if ((producto.cantidad + cant) < 1) {//SI LA CANTIDAD ES MENOR A 1, OSEA QUE ESTÁ DISMINUYENDO
@@ -122,19 +122,19 @@ const setCarrito = (objeto, cant) => {
             localStorage.setItem("carrito", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
             if (cant === 1) {
                 totalCompra = Number(totalCompra) + Number(producto.precio)
-            } else if (cant===-1) { 
+            } else if (cant === -1) {
                 totalCompra = Number(totalCompra) - Number(producto.precio)
             }
-        }  
+        }
     } else {//SI NO HAY UN PRODUCTO IGUAL, SOLO LO AGREGA SI EL BOTON ESTA AUMENTANDO
         if (cant === 1) {
             producto.cantidad++
             carrito[producto.id] = { ...producto }
             localStorage.setItem("carrito", JSON.stringify(carrito));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
             objeto.querySelector('#cantidad').textContent = "Cantidad: " + producto.cantidad
-            totalCompra=Number(totalCompra)+Number(producto.precio)
+            totalCompra = Number(totalCompra) + Number(producto.precio)
         }
     }
     localStorage.setItem("totalCompra", totalCompra);//USUARIO DEBERÍA USAR EL ID DEL USUARIO
-    document.getElementById('totalCompraNav').innerHTML=`$ ${totalCompra}`
+    document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
 }
