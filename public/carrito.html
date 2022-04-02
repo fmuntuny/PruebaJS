@@ -34,7 +34,6 @@
               width="40px"><b id="totalCompraNav">$0</b></a>
         </li>
 
-
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -67,6 +66,44 @@
         </table>
     </div>
     <div class="container" id="footer-envio"></div>
+    <br>
+    <div class="container">
+      <h3>Seleccione el tipo de envio:</h3>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioLocal" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Retiro por el local
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioDomicilio">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Quiero que me lo envíen a mi domicilio
+        </label>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+      <h3>Seleccione el tipo tipo de pago:</h3>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoEfectivo" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Efectivo
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoDebito">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Tarjeta de débito
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoCredito">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Tarjeta de crédito
+        </label>
+      </div>
+    </div>
 
 
 <template id="template-envio">
