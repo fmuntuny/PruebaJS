@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del carrito</title>
+    <link rel="icon" href="../img/iconoLogo.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
@@ -67,12 +68,12 @@
     </div>
     <div class="container" id="footer-envio"></div>
     <br>
-    <div class="container">
-      <h3>Seleccione el tipo de envio: <button class="btn btn-info btn-sm"> Confirmar compra</button></h3>
+    <div class="container" id="container-envio">
+      <h3>Seleccione el tipo de envio: <button class="btn btn-info btn-sm" id="btnConfirmaCompra"> Confirmar compra</button></h3>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioLocal" checked>
         <label class="form-check-label" for="flexRadioDefault2">
-          Retiro por el local
+          Retiro por el local (Av. Libertador 1567, CABA)
         </label>
             </div>
       <div class="form-check">
@@ -105,7 +106,34 @@
       </div>
     </div>
     
-    
+
+
+    <template id="template-forma-pago">
+    <h1>Detalle de la forma de pago</h1>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Medio de pago</th>
+          <th scope="col">Numero tarjeta</th>
+          <th scope="col">Nombre completo</th>
+          <th scope="col">Vencimiento</th>
+          <th scope="col">Codigo de Seguridad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td id="medioPago">Tarjeta de débito</th>
+        <td id="numeroTarjeta">999999999999</th>
+        <td id="nombreTarjeta">Juan Carlos Sanchez</th>
+        <td id="vtoTarjeta">02/23</th>
+        <td id="codSeguridad">333</th>
+      </tbody>
+      <tfoot>
+        <tr id="detalleMedioDePago">
+        </tr>
+      </tfoot>
+    </table>
+</template>
 
 
 <template id="template-envio">
@@ -132,7 +160,7 @@
         <tr>
             <td></td>
             <th ></th>
-            <td><button class="btn btn-danger btn-sm"> Modificar datos de envio</button></td>
+            <td><a href="/public/datosUser.html">Modificar datos de envio</td>
             <th>Costo total:</th>
             <th>$ <span id="total-costo">600</span></th>
         </tr>

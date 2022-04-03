@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     pintarCarrito()
 })
 
+//DETECTA EL CLICK EN EL BOTON DE CONFIRMAR COMPRA
+document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
+    const cantProd = Object.values(carrito).length
+    if (cantProd > 0) {
+        window.open("../public/confirmaCompra.html", "_self");
+    }
+})
+
 //DETECTA EL CLICK EN LOS BOTONES DE SUMAR O RESTAR CANTIDADES
 items.addEventListener('click', e => {
     btnAccion(e)
@@ -42,16 +50,20 @@ items.addEventListener('click', e => {
 
 //DETECTA EL CLICK EN LOS RADIOBUTTON
 document.getElementById('tipoEnvioLocal').addEventListener('click', () => {
-    localStorage.setItem("envio", "no")
-    totalCompra = Number(totalCompra) - 600//SI SACA EL ENVIO, RESTAMOS EL ENVIO AL CARRITO DEL NAV
-    localStorage.setItem("totalCompra", totalCompra)
-    pintarCarrito()
+    if (Object.values(carrito).length > 0) {
+        localStorage.setItem("envio", "no")
+        totalCompra = Number(totalCompra) - 600//SI SACA EL ENVIO, RESTAMOS EL ENVIO AL CARRITO DEL NAV
+        localStorage.setItem("totalCompra", totalCompra)
+        pintarCarrito()
+    }
 })
 document.getElementById('tipoEnvioDomicilio').addEventListener('click', () => {
-    localStorage.setItem("envio", "si")
-    totalCompra = Number(totalCompra) + 600//SI AGREGA EL ENVIO, SUMAMOS EL ENVIO AL CARRITO DEL NAV
-    localStorage.setItem("totalCompra", totalCompra)
-    pintarCarrito()
+    if (Object.values(carrito).length > 0) {
+        localStorage.setItem("envio", "si")
+        totalCompra = Number(totalCompra) + 600//SI AGREGA EL ENVIO, SUMAMOS EL ENVIO AL CARRITO DEL NAV
+        localStorage.setItem("totalCompra", totalCompra)
+        pintarCarrito()
+    }
 })
 
 
@@ -93,12 +105,12 @@ const pintarFooter = () => {
     const btnVaciarCarrito = document.querySelector('#vaciar-carrito')
     btnVaciarCarrito.addEventListener('click', () => {
         carrito = {}
-        pintarCarrito()
         rbEnvioLocal.checked = true
         localStorage.setItem("envio", "no")
         totalCompra = 0
         localStorage.setItem("totalCompra", totalCompra)
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
+        pintarCarrito()
     })
     pintarEnvio()
 }
