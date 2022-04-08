@@ -1,153 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del carrito</title>
-    <link rel="icon" href="../img/iconoLogo.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del carrito</title>
+  <link rel="icon" href="../img/iconoLogo.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+
 <body>
+  <!-- ************************************ INICIO NAV ************************************-->
+  <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #7fffd4;" alt="1200px">
+    <div class="container-fluid">
 
-<nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #7fffd4;" alt="1200px">
-  <div class="container-fluid">
+      <img src="../img/LogotB.png" width="80px">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../login.html">Cuenta</a>
+          </li>
 
-    <img src="../img/LogotB.png" width="80px">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../login.html">Cuenta</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../index.html">Seguir comprando</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/public/carrito.html"><img img src="../img/carrito.png"
+                width="40px"><b id="totalCompraNav">$0</b></a>
+          </li>
 
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../index.html">Seguir comprando</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/public/carrito.html"><img img src="../img/carrito.png"
-              width="40px"><b id="totalCompraNav">$0</b></a>
-        </li>
-
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-    <div class="container">
-        <h1>Detalle del carrito</h1>
-        <hr>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Item</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Acción</th>
-              <th scope="col">Total productos</th>
-            </tr>
-          </thead>
-          <tbody id="items"></tbody>
-          <tfoot>
-            <tr id="footer">
-              <th scope="row" colspan="5"></th>
-            </tr>
-          </tfoot>
-        </table>
-    </div>
-    <div class="container" id="footer-envio"></div>
-    <br>
-    <div class="container" id="container-envio">
-      <h3>Seleccione el tipo de envio: <button class="btn btn-info btn-sm" id="btnConfirmaCompra"> Confirmar compra</button></h3>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioLocal" checked>
-        <label class="form-check-label" for="flexRadioDefault2">
-          Retiro por el local (Av. Libertador 1567, CABA)
-        </label>
-            </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioDomicilio">
-        <label class="form-check-label" for="flexRadioDefault1">
-          Quiero que me lo envíen a mi domicilio
-        </label>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
       </div>
     </div>
-    <br>
-    <div class="container">
-      <h3>Seleccione el tipo tipo de pago:</h3>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoEfectivo" checked>
-        <label class="form-check-label" for="flexRadioDefault2">
-          Efectivo
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoDebito">
-        <label class="form-check-label" for="flexRadioDefault1">
-          Tarjeta de débito
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoCredito">
-        <label class="form-check-label" for="flexRadioDefault1">
-          Tarjeta de crédito
-        </label>
-      </div>
-    </div>
-    
-<footer class="pie-pagina">
-      <div class="box">
-       <h2>Siguenos</h2>
-       <div class="redes-sociales">
-         <a href="https://www.facebook.com/micaela.navarro.35513800" class="fa fa-facebook"></a>
-         <a href="https://wa.me/542612732348" class="fa fa-whatsapp"></a>
-       </div>
-             </div>
-             <div class="grupo-2">
-               <small>&copy; 2022 <b> GymSales</b>- Todos los derechos reservados </small>
-             </div>
-    </footer>
+  </nav>
+  <!-- ************************************ FIN NAV ************************************-->
 
-    <template id="template-forma-pago">
-    <h1>Detalle de la forma de pago</h1>
+  <!-- ************************************ INICIO CARRITO ************************************-->
+  <div class="container">
+    <h1>Detalle del carrito</h1>
     <hr>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Medio de pago</th>
-          <th scope="col">Numero tarjeta</th>
-          <th scope="col">Nombre completo</th>
-          <th scope="col">Vencimiento</th>
-          <th scope="col">Codigo de Seguridad</th>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Acción</th>
+          <th scope="col">Total productos</th>
         </tr>
       </thead>
-      <tbody>
-        <td id="medioPago">Tarjeta de débito</th>
-        <td id="numeroTarjeta">999999999999</th>
-        <td id="nombreTarjeta">Juan Carlos Sanchez</th>
-        <td id="vtoTarjeta">02/23</th>
-        <td id="codSeguridad">333</th>
-      </tbody>
+      <tbody id="items"></tbody>
       <tfoot>
-        <tr id="detalleMedioDePago">
+        <tr id="footer">
+          <th scope="row" colspan="5"></th>
         </tr>
       </tfoot>
     </table>
-</template>
+  </div>
+  <div class="container" id="footer-envio"></div>
+  <div class="container" id="footer-medio-pago"></div>
+  <div class="container" id="container-envio">
+    <h3>Seleccione el tipo de envio: <button class="btn btn-info btn-sm" id="btnConfirmaCompra"> Confirmar
+        compra</button></h3>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioLocal" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Retiro por el local (Av. Libertador 1567, CABA)
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioDomicilio">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Quiero que me lo envíen a mi domicilio
+      </label>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <h3>Seleccione el tipo tipo de pago:</h3>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoEfectivo" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Efectivo
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoDebito">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Tarjeta de débito
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoCredito">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Tarjeta de crédito
+      </label>
+    </div>
+  </div>
+  <!-- ************************************ FIN CARRITO ************************************-->
+
+  <!-- ************************************ INICIO FOOTER ************************************-->
+  <footer class="pie-pagina">
+    <div class="box">
+      <h2>Siguenos</h2>
+      <div class="redes-sociales">
+        <a href="https://www.facebook.com/micaela.navarro.35513800" class="fa fa-facebook"></a>
+        <a href="https://wa.me/542612732348" class="fa fa-whatsapp"></a>
+      </div>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2022 <b> GymSales</b>- Todos los derechos reservados </small>
+    </div>
+  </footer>
+  <!-- ************************************ FIN FOOTER ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATES Y SCRIPTS ************************************-->
 
 
-<template id="template-envio">
+
+  <!-- ************************************ INICIO TEMPLATE MEDIOS DE PAGO ************************************-->
+  <template id="template-medio-pago">
+    <h1>Detalle para compra con tarjetas</h1>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Tarjeta</th>
+          <th scope="col">Banco</th>
+          <th scope="col">N° Tarjeta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td><select name="select" id="listaTarjetas">
+            <option value="Visa" selected id="visa">Visa</option>
+            <option value="Cabal" id="cabal">Cabal</option>
+            <option value="Naranja" id="naranja">Naranja</option>
+            <option value="American Express" id="amex">American Express</option>
+            <option value="Mastercard" id="master">Mastercard</option>
+            <option value="Visa" id="visaDebito">Visa</option>
+            <option value="Mastercard" id="masterDebito">Mastercard</option>
+          </select></td>
+        <td><select name="select" id="listaBancos">
+            <option value="7">BANCO DE GALICIA Y BUENOS AIRES S.A.U.</option>
+            <option value="11">BANCO DE LA NACION ARGENTINA</option>
+            <option value="14">BANCO DE LA PROVINCIA DE BUENOS AIRES</option>
+            <option value="15">INDUSTRIAL AND COMMERCIAL BANK OF CHINA</option>
+            <option value="16">CITIBANK N.A.</option>
+            <option value="17">BANCO BBVA ARGENTINA S.A.</option>
+            <option value="20">BANCO DE LA PROVINCIA DE CORDOBA S.A.</option>
+            <option value="27">BANCO SUPERVIELLE S.A.</option>
+            <option value="29">BANCO DE LA CIUDAD DE BUENOS AIRES</option>
+            <option value="34">BANCO PATAGONIA S.A.</option>
+            <option value="44">BANCO HIPOTECARIO S.A.</option>
+            <option value="45">BANCO DE SAN JUAN S.A.</option>
+            <option value="65">BANCO MUNICIPAL DE ROSARIO</option>
+            <option value="72">BANCO SANTANDER RIO S.A.</option>
+            <option value="83">BANCO DEL CHUBUT S.A.</option>
+            <option value="86">BANCO DE SANTA CRUZ S.A.</option>
+            <option value="93">BANCO DE LA PAMPA SOCIEDAD DE ECONOMÍA M</option>
+            <option value="94">BANCO DE CORRIENTES S.A.</option>
+            <option value="97">BANCO PROVINCIA DEL NEUQUÉN SOCIEDAD ANÓ</option>
+            <option value="143">BRUBANK S.A.U.</option>
+            <option value="147">BANCO INTERFINANZAS S.A.</option>
+            <option value="150">HSBC BANK ARGENTINA S.A.</option>
+            <option value="158">OPEN BANK ARGENTINA S.A.</option>
+            <option value="165">JPMORGAN CHASE BANK, NATIONAL ASSOCIATIO</option>
+            <option value="191">BANCO CREDICOOP COOPERATIVO LIMITADO</option>
+            <option value="198">BANCO DE VALORES S.A.</option>
+            <option value="247">BANCO ROELA S.A.</option>
+            <option value="254">BANCO MARIVA S.A.</option>
+            <option value="259">BANCO ITAU ARGENTINA S.A.</option>
+            <option value="266">BNP PARIBAS</option>
+            <option value="268">BANCO PROVINCIA DE TIERRA DEL FUEGO</option>
+            <option value="269">BANCO DE LA REPUBLICA ORIENTAL DEL URUGU</option>
+            <option value="277">BANCO SAENZ S.A.</option>
+            <option value="281">BANCO MERIDIAN S.A.</option>
+            <option value="285">BANCO MACRO S.A.</option>
+            <option value="299">BANCO COMAFI SOCIEDAD ANONIMA</option>
+            <option value="300">BANCO DE INVERSION Y COMERCIO EXTERIOR S</option>
+            <option value="301">BANCO PIANO S.A.</option>
+            <option value="305">BANCO JULIO SOCIEDAD ANONIMA</option>
+            <option value="309">BANCO RIOJA SOCIEDAD ANONIMA UNIPERSONAL</option>
+            <option value="310">BANCO DEL SOL S.A.</option>
+            <option value="311">NUEVO BANCO DEL CHACO S. A.</option>
+            <option value="312">BANCO VOII S.A.</option>
+            <option value="315">BANCO DE FORMOSA S.A.</option>
+            <option value="319">BANCO CMF S.A.</option>
+            <option value="321">BANCO DE SANTIAGO DEL ESTERO S.A.</option>
+            <option value="322">BANCO INDUSTRIAL S.A.</option>
+            <option value="330">NUEVO BANCO DE SANTA FE SOCIEDAD ANONIMA</option>
+            <option value="331">BANCO CETELEM ARGENTINA S.A.</option>
+            <option value="332">BANCO DE SERVICIOS FINANCIEROS S.A.</option>
+            <option value="336">BANCO BRADESCO ARGENTINA S.A.U.</option>
+            <option value="338">BANCO DE SERVICIOS Y TRANSACCIONES S.A.</option>
+            <option value="339">RCI BANQUE S.A.</option>
+            <option value="340">BACS BANCO DE CREDITO Y SECURITIZACION S</option>
+            <option value="341">BANCO MASVENTAS S.A.</option>
+            <option value="384">WILOBANK S.A.</option>
+            <option value="386">NUEVO BANCO DE ENTRE RÍOS S.A.</option>
+            <option value="389">BANCO COLUMBIA S.A.</option>
+            <option value="426">BANCO BICA S.A.</option>
+            <option value="431">BANCO COINAG S.A.</option>
+            <option value="432">BANCO DE COMERCIO S.A.</option>
+            <option value="435">BANCO SUCREDITO REGIONAL S.A.U.</option>
+            <option value="448">BANCO DINO S.A.</option>
+            <option value="515">BANK OF CHINA LIMITED SUCURSAL BUENOS AI</option>
+            <option value="44059">FORD CREDIT COMPAÑIA FINANCIERA S.A.</option>
+            <option value="44077">COMPAÑIA FINANCIERA ARGENTINA S.A.</option>
+            <option value="44088">VOLKSWAGEN FINANCIAL SERVICES COMPAÑIA F</option>
+            <option value="44090">IUDU COMPAÑÍA FINANCIERA S.A.</option>
+            <option value="44092">FCA COMPAÑIA FINANCIERA S.A.</option>
+            <option value="44093">GPAT COMPAÑIA FINANCIERA S.A.U.</option>
+            <option value="44094">MERCEDES-BENZ COMPAÑÍA FINANCIERA ARGENT</option>
+            <option value="44095">ROMBO COMPAÑÍA FINANCIERA S.A.</option>
+            <option value="44096">JOHN DEERE CREDIT COMPAÑÍA FINANCIERA S.</option>
+            <option value="44098">PSA FINANCE ARGENTINA COMPAÑÍA FINANCIER</option>
+            <option value="44099">TOYOTA COMPAÑÍA FINANCIERA DE ARGENTINA</option>
+            <option value="45030">NARANJA DIGITAL COMPAÑÍA FINANCIERA S.A.</option>
+            <option value="45056">MONTEMAR COMPAÑIA FINANCIERA S.A.</option>
+            <option value="45072">TRANSATLANTICA COMPAÑIA FINANCIERA S.A.</option>
+            <option value="65203">CREDITO REGIONAL COMPAÑIA FINANCIERA S.A</option>
+          </select></td>
+        <td><input type="number" name="name" required id="nTarjeta"></td>
+      </tbody>
+      <thead>
+        <tr>
+          <th scope="col">Fecha Vto.</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Cod. Seg.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td><input type="number" name="name" required id="fechaVto"></td>
+        <td><input type="text" name="name" required id="nombreTitular"></td>
+        <td><input type="number" name="name" required id="codSeg"></td>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+  </template>
+  <!-- ************************************ FIN TEMPLATE MEDIOS DE PAGO ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATE ENVIO ************************************-->
+  <template id="template-envio">
     <h1>Detalle del envío</h1>
     <hr>
     <table class="table">
@@ -163,51 +272,65 @@
       <tbody>
         <td id="nombre">Nombre</th>
         <td id="apellido">Apellido</th>
-        <td id="direccion">Dirección</th>
-        <td id="telefono">Teléfono</th>
-        <td >$ <span id="costo">600</span></th>
+        <td><input type="text" name="name" id="direccion"></td>
+        <td><input type="number" name="name" id="telefono"></td>
+        <td>$ <span id="costo">600</span></th>
       </tbody>
       <tfoot>
         <tr>
-            <td></td>
-            <th ></th>
-            <td><a href="/public/datosUser.html">Modificar datos de envio</td>
-            <th>Costo total:</th>
-            <th>$ <span id="total-costo">600</span></th>
+          <td></td>
+          <th></th>
+          <td>Puede modificar dirección y telefono<br>de envio aquí arriba</td>
+          <th>Costo total:</th>
+          <th>$ <span id="total-costo">600</span></th>
         </tr>
       </tfoot>
     </table>
-</template>
+  </template>
+  <!-- ************************************ FIN TEMPLATE ENVIO ************************************-->
 
-    <template id="template-footer">
-        <th scope="row" colspan="2">Total productos</th>
-        <td></td>
-        <td>10</td>
-        <td>
-            <button class="btn btn-danger btn-sm" id="vaciar-carrito">
-                vaciar todo
-            </button>
-        </td>
-        <td class="font-weight-bold">$ <span id="total-compra">5000</span></td>
-    </template>
-    
-    <template id="template-carrito">
-      <tr>
-        <th scope="row">id</th>
-        <td>Café</td>
-        <td>1</td>
-        <td>$500</td>
-        <td>
-            <button class="btn btn-info btn-sm">
-                +
-            </button>
-            <button class="btn btn-danger btn-sm">
-                -
-            </button>
-        </td>
-        <td>$ <span>500</span></td>
-      </tr>
-    </template>
-    <script src="../js/jsCarrito.js"></script>
+  <!-- ************************************ INICIO TEMPLATE FOOTER ************************************-->
+  <template id="template-footer">
+    <th scope="row" colspan="2">Total productos</th>
+    <td></td>
+    <td>10</td>
+    <td>
+      <button class="btn btn-danger btn-sm" id="vaciar-carrito">
+        vaciar todo
+      </button>
+    </td>
+    <td class="font-weight-bold">$ <span id="total-compra">5000</span></td>
+  </template>
+  <!-- ************************************ FIN TEMPLATE FOOTER ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATE CARRITO ************************************-->
+  <template id="template-carrito">
+    <tr>
+      <th scope="row">id</th>
+      <td>Café</td>
+      <td>1</td>
+      <td>$500</td>
+      <td>
+        <button class="btn btn-info btn-sm">
+          +
+        </button>
+        <button class="btn btn-danger btn-sm">
+          -
+        </button>
+      </td>
+      <td>$ <span>500</span></td>
+    </tr>
+  </template>
+
+  <!-- ************************************ FIN TEMPLATE CARRITO ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATES Y SCRIPTS ************************************-->
+
+  <!--cdn jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="../js/jsCarrito.js"></script>
 </body>
+
 </html>

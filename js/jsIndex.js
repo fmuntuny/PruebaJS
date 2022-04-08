@@ -25,6 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     fetchdata()
 })
+
+//PRUEBA PARA OBTENER CARRITO BACK
+//GET(Get a Cart)
+//Endpoint: localhost: 8080 / api / carts /
+
+document.getElementById('pruebaCarrito').addEventListener('click', () => {
+    $.ajax({
+        url: 'http://localhost:8080/api/products/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+            console.log(res)
+        }
+    })
+})
+
 //DETECTA EL CLIC EN EL BOTON DE LOS PRODUCTOS PARA AGREGARLOS AL CARRITO
 cards.addEventListener('click', e => {
     addCarrito(e)

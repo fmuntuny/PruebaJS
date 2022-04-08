@@ -1,13 +1,17 @@
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const envios = document.getElementById('footer-envio')
+const pago = document.getElementById('footer-medio-pago')
 const templateCarrito = document.getElementById('template-carrito').content
 const templateFooter = document.getElementById('template-footer').content
 const templateEnvio = document.getElementById('template-envio').content
-const templateOpcionEnvio = document.getElementById('template-opcion-envio')
+const templateMedioPago = document.getElementById('template-medio-pago').content
 const fragment = document.createDocumentFragment()
 const rbEnvioLocal = document.getElementById('tipoEnvioLocal')
 const rbEnvioDomicilio = document.getElementById('tipoEnvioDomicilio')
+const rbTarjetaDebito = document.getElementById('tipoPagoDebito')
+const rbTarjetaCredito = document.getElementById('tipoPagoCredito')
+const rbEfectivo = document.getElementById('tipoPagoEfectivo')
 let envio = false
 let totalCompra = ""
 let carrito = {}
@@ -32,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem("envio")) {
         localStorage.setItem("envio", "no")
     }
+    if (!localStorage.getItem("medioPago")) {
+        localStorage.setItem("medioPago", "efectivo")
+    }
     pintarCarrito()
 })
 
@@ -48,7 +55,7 @@ items.addEventListener('click', e => {
     btnAccion(e)
 })
 
-//DETECTA EL CLICK EN LOS RADIOBUTTON
+//DETECTA EL CLICK EN LOS RADIOBUTTON PARA ENVIO
 document.getElementById('tipoEnvioLocal').addEventListener('click', () => {
     if (Object.values(carrito).length > 0) {
         localStorage.setItem("envio", "no")
@@ -66,7 +73,25 @@ document.getElementById('tipoEnvioDomicilio').addEventListener('click', () => {
     }
 })
 
-
+//DETECTA EL CLICK EN LOS RADIOBUTTON PARA MEDIO DE PAGO
+document.getElementById('tipoPagoEfectivo').addEventListener('click', () => {
+    if (Object.values(carrito).length > 0) {
+        localStorage.setItem("medioPago", "efectivo")
+        pintarCarrito()
+    }
+})
+document.getElementById('tipoPagoDebito').addEventListener('click', () => {
+    if (Object.values(carrito).length > 0) {
+        localStorage.setItem("medioPago", "tarjetaDebito")
+        pintarCarrito()
+    }
+})
+document.getElementById('tipoPagoCredito').addEventListener('click', () => {
+    if (Object.values(carrito).length > 0) {
+        localStorage.setItem("medioPago", "tarjetaCredito")
+        pintarCarrito()
+    }
+})
 
 
 const pintarCarrito = () => {
@@ -92,6 +117,7 @@ const pintarFooter = () => {
     if (Object.keys(carrito).length === 0) {
         footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>`
         envios.innerHTML = ''
+        pago.innerHTML = ''
         return
     }
     footer.innerHTML = ''
@@ -140,14 +166,15 @@ const btnAccion = e => {
 //PINTA LA TABLA DEL ENVIO
 const pintarEnvio = () => {
     envio = localStorage.getItem("envio")
+    tipoPago = localStorage.getItem('medioPago')
     if (envio === "si") {
         rbEnvioLocal.checked = false
         rbEnvioDomicilio.checked = true
         envios.innerHTML = ''
         templateEnvio.getElementById('nombre').textContent = user.nombre
         templateEnvio.getElementById('apellido').textContent = user.apellido
-        templateEnvio.getElementById('direccion').textContent = user.direccion
-        templateEnvio.getElementById('telefono').textContent = user.telefono
+        templateEnvio.getElementById('direccion').value = user.direccion
+        templateEnvio.getElementById('telefono').value = user.telefono
         templateEnvio.getElementById('costo').textContent = 600
         templateEnvio.getElementById('total-costo').textContent = Number(document.getElementById('total-compra').textContent) + 600
         const clone = templateEnvio.cloneNode(true)
@@ -159,5 +186,46 @@ const pintarEnvio = () => {
         envios.innerHTML = ''
         envios.appendChild(fragment)
     }
+    let medioPago = localStorage.getItem("medioPago")
+    if (medioPago === "tarjetaDebito" || medioPago === "tarjetaCredito") {
+        if (tipoPago === "tarjetaDebito") {
+            rbTarjetaDebito.checked = true
+            rbTarjetaCredito.checked = false
+            rbEfectivo.checked = false
+        } else if (tipoPago === "tarjetaCredito") {
+            rbTarjetaDebito.checked = false
+            rbTarjetaCredito.checked = true
+            rbEfectivo.checked = false
+        }
+    } else {
+        rbTarjetaDebito.checked = false
+        rbTarjetaCredito.checked = false
+        rbEfectivo.checked = true
+        pago.innerHTML = ''
+    }
+    pintarTarjetas()
+}
 
+const pintarTarjetas = () => {
+    pago.innerHTML = ''
+    let medioPago = localStorage.getItem("medioPago")
+    $(function () {
+        if (medioPago === "tarjetaCredito") {
+            $('#visaDebito').hide()
+            $('#masterDebito').hide()
+        } else if (medioPago === "tarjetaDebito") {
+            $('#visa').hide()
+            $('#cabal').hide()
+            $('#naranja').hide()
+            $('#amex').hide()
+            $('#master').hide()
+            $('#listaBancos').hide()
+        } else {
+            pago.innerHTML = ''
+            templateMedioPago.innerHTML = ''
+        }
+    })
+    const clone = templateMedioPago.cloneNode(true)
+    fragment.appendChild(clone)
+    pago.appendChild(fragment)
 }
