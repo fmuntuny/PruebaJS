@@ -1,145 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos</title>
-    <link rel="icon" href="/img/iconoLogo.ico" />
-    <!--cdn bootstrap-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <nav
-      class="navbar navbar-expand-lg navbar navbar-light"
-      style="background-color: #7fffd4"
-      alt="1200px"
-    >
-      <div class="container-fluid">
-        <img src="../img/LogotB.png" width="80px" />
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="../login.html"
-                >Cuenta</a
-              >
-            </li>
+<html lang="es">
 
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="../index.html"
-                >Seguir comprando</a
-              >
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Productos</title>
+  <link rel="icon" href="/img/iconoLogo.ico" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- ************************************ INICIO NAV ************************************-->
+
+  <nav class="navbar navbar-expand-lg navbar navbar-light sticky-top" style="background-color: #7fffd4" alt="1200px">
+    <div class="container-fluid">
+      <a href="../index.html"><img src="../img/Logo.png" width="60px" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/public/carrito.html"><img img src="../img/carrito.png"
+            width="30px" /><b id="totalCompraNav">$0</b></a>
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../public/login.html">Inicia Sesion</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../public/misCompras.html">Mis compras</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Nosotros</a>
+          </li>
+        </ul>
+      </div>
+      <form class="d-flex">
+        <ul class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Categorías
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Suplementos</a></li>
+            <li>
+              <hr class="dropdown-divider">
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >Nosotros</a
-              >
+            <li><a class="dropdown-item" href="#">Ropa y accesorios</a></li>
+            <li>
+              <hr class="dropdown-divider">
             </li>
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="/public/carrito.html"
-                ><img img src="../img/carrito.png" width="40px" /><b
-                  id="totalCompraNav"
-                  >$0</b
-                ></a
-              >
-            </li>
+            <li><a class="dropdown-item" href="#">Fitness y Musculación</a></li>
           </ul>
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Buscar
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
-
-    <button class="btn btn-info btn-sm" id="pruebaCarrito">
-      prueba obtener carrito
-    </button>
-
-    <div class="container">
-      <h1>Productos</h1>
-      <hr />
-      <div class="row" id="cards"></div>
+        </ul>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">
+          Buscar
+        </button>
+      </form>
     </div>
+  </nav>
+  <!-- ************************************ FIN NAV ************************************-->
 
-    <footer class="pie-pagina">
-      <div class="box">
-        <h2>Siguenos</h2>
-        <div class="redes-sociales">
-          <a
-            href="https://www.facebook.com/micaela.navarro.35513800"
-            class="fa fa-facebook"
-          ></a>
-          <a href="https://wa.me/542612732348" class="fa fa-whatsapp"></a>
+  <!-- ************************************ INICIO PRODUCTOS ************************************-->
+
+  <button class="btn btn-info btn-sm" id="pruebaCarrito">
+    prueba obtener carrito
+  </button>
+
+  <div class="container">
+    <h1>Productos</h1>
+    <hr />
+    <div class="row" id="cards"></div>
+  </div>
+  <!-- ************************************ FIN PRODUCTOS ************************************-->
+
+  <!-- ************************************ INICIO FOOTER ************************************-->
+  <footer class="pie-pagina">
+    <div class="box">
+      <h2>Siguenos</h2>
+      <div class="redes-sociales">
+        <a href="https://www.facebook.com/micaela.navarro.35513800" class="fa fa-facebook"></a>
+        <a href="https://wa.me/542612732348" class="fa fa-whatsapp"></a>
+      </div>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2022 <b> GymSales</b>- Todos los derechos reservados
+      </small>
+    </div>
+  </footer>
+  <!-- ************************************ FIN FOOTER ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATES ************************************-->
+
+  <!-- ************************************ INICIO TEMPLATES CARDS ************************************-->
+
+  <template id="template-card">
+    <div class="card mb-3" style="max-width: 1200px">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="" class="card-img-top" alt="..." />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 id="titulo">Titulo</h3>
+            <h5 id="descripcion">Descripción:</h5>
+            <p id="precio">Precio:</p>
+            <p id="calificacion">Calificación:</p>
+            <p id="cantidad">Cantidad:</p>
+            <button class="btn btn-info btn-sm">Agregar</button>
+            <button class="btn btn-danger btn-sm">Quitar</button>
+          </div>
         </div>
       </div>
-      <div class="grupo-2">
-        <small
-          >&copy; 2022 <b> GymSales</b>- Todos los derechos reservados
-        </small>
-      </div>
-    </footer>
+    </div>
+  </template>
+  <!-- ************************************ FIN TEMPLATES CARDS ************************************-->
 
-    <template id="template-card">
-      <div class="card mb-3" style="max-width: 1200px">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="" class="card-img-top" alt="..." />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h3 id="titulo">Titulo</h3>
-              <h5 id="descripcion">Descripción:</h5>
-              <p id="precio">Precio:</p>
-              <p id="calificacion">Calificación:</p>
-              <p id="cantidad">Cantidad:</p>
-              <button class="btn btn-info btn-sm">Agregar</button>
-              <button class="btn btn-danger btn-sm">Quitar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
+  <!-- ************************************ FIN TEMPLATES ************************************-->
 
-    <!--cdn jquery-->
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
+  <!-- ************************************ INICIO SCRIPTS ************************************-->
 
-    <script src="js/jsIndex.js"></script>
-  </body>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!--cdn jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="js/jsIndex.js"></script>
+</body>
+
 </html>
