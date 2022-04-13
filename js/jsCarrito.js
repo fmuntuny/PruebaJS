@@ -14,8 +14,11 @@ const rbTarjetaCredito = document.getElementById('tipoPagoCredito')
 const rbEfectivo = document.getElementById('tipoPagoEfectivo')
 let envio = false
 let totalCompra = ""
+let cantItems = 0;
 let carrito = {}
 let user = {}
+let idUsuario = 1//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
+let idCarrito
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem("medioPago")) {
         localStorage.setItem("medioPago", "efectivo")
     }
+
     pintarCarrito()
 })
 
@@ -46,7 +50,30 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
     const cantProd = Object.values(carrito).length
     if (cantProd > 0) {
-        window.open("../public/confirmaCompra.html", "_self");
+        idCarrito = localStorage.getItem("idCarrito")
+        const urlPUT = "http://localhost:8080/api/carts/" + idCarrito
+        const cart = {
+            "id": idCarrito,
+            "userId": { "id": idUsuario },
+            "meansOfPayment": localStorage.getItem("medioPago"),
+            "deleted": true
+        }
+        $.ajax({
+            url: urlPUT,
+            contentType: 'application/json',
+            type: 'PUT',
+            data: JSON.stringify(cart),
+            dataType: 'json',
+        })
+        localStorage.clear()
+        carrito = {}
+        pintarCarrito()
+        totalCompra = 0
+        document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
+        $(function () {
+            alert("La compra fue exitosa, en breve recibirá un mail con los detalles. Gracias por su compra!");
+        });
+        //window.open("../public/confirmaCompra.html", "_self");
     }
 })
 
@@ -123,6 +150,7 @@ const pintarFooter = () => {
     footer.innerHTML = ''
     const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0)
     const nPrecio = Object.values(carrito).reduce((acc, { cantidad, precio }) => acc + cantidad * precio, 0)
+    cantItems = nCantidad
     templateFooter.querySelectorAll('td')[1].textContent = nCantidad
     templateFooter.querySelector('span').textContent = nPrecio
     const clone = templateFooter.cloneNode(true)

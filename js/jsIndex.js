@@ -2,9 +2,13 @@ const cards = document.getElementById('cards')
 const templateCard = document.getElementById('template-card').content
 const fragment = document.createDocumentFragment()
 const totalCompraNav = document.getElementById('totalCompraNav').textContent
+const btnTotalCompraNav = document.getElementById('totalCompraNav')
 let totalCompra = ""
 let carrito = {}//AL CARGAR LA PÁGINA ESTE ARRAY SE TIENE QUE CARGAR CON TODOS LOS PRODUCTOS DE LA INDEXEDDB DEL CLIENTE
 let user = {}
+let idCarrito
+let isFinish
+let idUsuario = 1//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
@@ -23,26 +27,41 @@ document.addEventListener('DOMContentLoaded', () => {
         totalCompra = 0
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
     }
-    fetchdata()
-})
-
-//PRUEBA PARA OBTENER CARRITO BACK
-//GET(Get a Cart)
-//Endpoint: localhost: 8080 / api / carts /
-
-document.getElementById('pruebaCarrito').addEventListener('click', () => {
-    $.ajax({
-        url: 'http://localhost:8080/api/products/',
+    let idCarrito
+    let isFinish
+    $.ajax({//OBTENEMOS EL ID DEL CARRITO DEL USUARIO
+        url: 'http://localhost:8080/api/carts/',
         type: 'GET',
         dataType: 'json',
         success: function (res) {
-            console.log(res)
+            res.forEach(cart => {
+                if (cart.userId.id === 1) {
+                    localStorage.setItem("idCarrito", cart.id)
+                    localStorage.setItem("carritoIsFinished", cart.deleted)
+                }
+            })
+
         }
     })
+
+    fetchdata()
 })
 
 //DETECTA EL CLIC EN EL BOTON DE LOS PRODUCTOS PARA AGREGARLOS AL CARRITO
 cards.addEventListener('click', e => {
+    if (localStorage.getItem("carritoIsFinished") === "true") {
+        localStorage.setItem("carritoIsFinished", false)
+        const cart = {
+            userId: { "id": idUsuario },
+        }
+        $.ajax({
+            url: "http://localhost:8080/api/carts",
+            contentType: 'application/json',
+            type: 'POST',
+            data: JSON.stringify(cart),
+            dataType: 'json',
+        })
+    }
     addCarrito(e)
 })
 const fetchdata = async () => {
@@ -51,6 +70,8 @@ const fetchdata = async () => {
         const resPro = await fetch('js/apiProductos.json')
         const dataPro = await resPro.json()
         pintarCards(dataPro)
+
+        //ESTOS DATOS DE USUARIO SON TEMPORALES HASTA QUE CONECTEMOS CON BACKEND
         const resUser = await fetch('js/apiUser.json')
         const dataUser = await resUser.json()
         dataUser.forEach(u => {
