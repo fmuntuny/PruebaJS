@@ -2,6 +2,8 @@ const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const envios = document.getElementById('footer-envio')
 const pago = document.getElementById('footer-medio-pago')
+const admin = document.getElementById('adminSitio')
+const templateAdmin = document.getElementById('template-admin').content
 const templateCarrito = document.getElementById('template-carrito').content
 const templateFooter = document.getElementById('template-footer').content
 const templateEnvio = document.getElementById('template-envio').content
@@ -22,11 +24,18 @@ let idCarrito
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem("carrito")) {
-        carrito = JSON.parse(localStorage.getItem("carrito"));
-    }
+
     if (localStorage.getItem("usuario")) {
         user = JSON.parse(localStorage.getItem("usuario"));
+        if (JSON.parse(localStorage.getItem('usuario')).id === 1) {
+            admin.innerHTML = ''
+            const clone = templateAdmin.cloneNode(true)
+            fragment.appendChild(clone)
+            admin.appendChild(fragment)
+        }
+    }
+    if (localStorage.getItem("carrito")) {
+        carrito = JSON.parse(localStorage.getItem("carrito"));
     }
     if (localStorage.getItem("totalCompra")) {
         totalCompra = localStorage.getItem("totalCompra")
@@ -49,7 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
 //DETECTA EL CLICK EN EL BOTON DE CONFIRMAR COMPRA
 document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
     const cantProd = Object.values(carrito).length
-    if (cantProd > 0) {
+    const medpag = localStorage.getItem('medioPago')
+    let tarjOK
+    if (medpag === "tarjetaDebito" || medpag === "tarjetaCredito") {
+        const tarjeta = document.getElementById('listaTarjetas').value
+        const banco = document.getElementById('listaBancos').value
+        const numTarjeta = document.getElementById('nTarjeta').value
+        const vto = document.getElementById('fechaVto').value
+        const titular = document.getElementById('nombreTitular').value
+        const codseg = document.getElementById('codSeg').value
+        tarjOK = tarjeta != "" && banco != "" && numTarjeta != "" && vto != "" && titular != "" && codseg != ""
+    }
+    if (cantProd > 0 && tarjOK) {
         idCarrito = localStorage.getItem("idCarrito")
         const urlPUT = "http://localhost:8080/api/carts/" + idCarrito
         const cart = {
@@ -70,10 +90,10 @@ document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
         pintarCarrito()
         totalCompra = 0
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
-        $(function () {
-            alert("La compra fue exitosa, en breve recibirá un mail con los detalles. Gracias por su compra!");
-        });
+        swal("Bien hecho!", "La compra fue un éxito, en breve recibirá un email con los detalles. Gracias por elegir Gym Sales!", "success");
         //window.open("../public/confirmaCompra.html", "_self");
+    } else {
+        swal("Por favor ingrese los datos requeridos para la compra con tarjetas")
     }
 })
 
@@ -199,10 +219,10 @@ const pintarEnvio = () => {
         rbEnvioLocal.checked = false
         rbEnvioDomicilio.checked = true
         envios.innerHTML = ''
-        templateEnvio.getElementById('nombre').textContent = user.nombre
-        templateEnvio.getElementById('apellido').textContent = user.apellido
-        templateEnvio.getElementById('direccion').value = user.direccion
-        templateEnvio.getElementById('telefono').value = user.telefono
+        templateEnvio.getElementById('nombre').textContent = user.name
+        templateEnvio.getElementById('apellido').textContent = user.surname
+        templateEnvio.getElementById('direccion').value = user.address
+        templateEnvio.getElementById('telefono').value = user.cellPhone
         templateEnvio.getElementById('costo').textContent = 600
         templateEnvio.getElementById('total-costo').textContent = Number(document.getElementById('total-compra').textContent) + 600
         const clone = templateEnvio.cloneNode(true)

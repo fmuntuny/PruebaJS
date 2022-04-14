@@ -1,5 +1,7 @@
 const cards = document.getElementById('cards')
+const admin = document.getElementById('adminSitio')
 const templateCard = document.getElementById('template-card').content
+const templateAdmin = document.getElementById('template-admin').content
 const fragment = document.createDocumentFragment()
 const totalCompraNav = document.getElementById('totalCompraNav').textContent
 const btnTotalCompraNav = document.getElementById('totalCompraNav')
@@ -13,11 +15,18 @@ let idUsuario = 1//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
 document.addEventListener('DOMContentLoaded', () => {
+
+    if (localStorage.getItem("usuario")) {
+        user = JSON.parse(localStorage.getItem("usuario"));
+        if (JSON.parse(localStorage.getItem('usuario')).id === 1) {
+            admin.innerHTML = ''
+            const clone = templateAdmin.cloneNode(true)
+            fragment.appendChild(clone)
+            admin.appendChild(fragment)
+        }
+    }
     if (localStorage.getItem("carrito")) {
         carrito = JSON.parse(localStorage.getItem("carrito"))
-    }
-    if (localStorage.getItem("usuario")) {
-        user = JSON.parse(localStorage.getItem("usuario"))
     }
     if (localStorage.getItem("totalCompra")) {
         totalCompra = localStorage.getItem("totalCompra")
@@ -67,23 +76,24 @@ cards.addEventListener('click', e => {
 const fetchdata = async () => {
     //CARGO LOS PRODUCTOS EN LA PÁGINA DE PRODUCTOS DESDE LA API
     try {
-        const resPro = await fetch('js/apiProductos.json')
+        const resPro = await fetch('http://localhost:8080/api/products')
         const dataPro = await resPro.json()
         pintarCards(dataPro)
 
         //ESTOS DATOS DE USUARIO SON TEMPORALES HASTA QUE CONECTEMOS CON BACKEND
-        const resUser = await fetch('js/apiUser.json')
+        const resUser = await fetch('http://localhost:8080/api/users/')
         const dataUser = await resUser.json()
         dataUser.forEach(u => {
             if (u.id === 1) {//*********************SERÍA IF(IDQUEVIENEDELLOGIN === U.ID)**********************************
                 user = {
-                    id: u.id,
-                    nombre: u.nombre,
-                    apellido: u.apellido,
-                    direccion: u.direccion,
-                    telefono: u.telefono,
-                    mail: u.mail,
-                    fechaAlta: u.fechaAlta
+                    "id": u.id,
+                    "name": u.name,
+                    "surname": u.surname,
+                    "address": u.address,
+                    "cellPhone": u.cellPhone,
+                    "email": u.email,
+                    "password": u.password,
+                    "roleId": { "id": 1 }
                 }
             }
             localStorage.setItem("usuario", JSON.stringify(user));//USUARIO DEBERÍA USAR EL ID DEL USUARIO
@@ -96,11 +106,24 @@ const fetchdata = async () => {
 //DIBUJA LOS PRODUCTOS EN LA PÁGINA
 const pintarCards = (data) => {
     data.forEach(producto => {
-        templateCard.getElementById('titulo').textContent = producto.title
-        templateCard.getElementById('descripcion').textContent = producto.descripcion
-        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.precio
-        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.calificacion
-        templateCard.querySelector('img').setAttribute("src", producto.thumbnailUrl)
+        /*
+         {   
+        "name": "Remera Nike Air Blanca",
+        "description": "Remera 100% algodon",
+        "price": 3500,
+        "brand": "Nike",
+        "barcode": 15645641321321564564321321,
+        "stock": 15,
+        "categoryId": {"id": 1},
+        "photoId": {"id": 1}
+        }
+        */
+        templateCard.getElementById('titulo').textContent = producto.name
+        templateCard.getElementById('descripcion').textContent = producto.description
+        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.price
+        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.promRate
+        //templateCard.querySelector('img').setAttribute("src", producto.thumbnailUrl)
+        //FALTA LA FOTO
         templateCard.querySelector('.btn-info').dataset.id = producto.id
         templateCard.querySelector('.btn-danger').dataset.id = producto.id
         if (Object.values(carrito).length > 0) {
