@@ -19,7 +19,7 @@ let totalCompra = ""
 let cantItems = 0;
 let carrito = {}
 let user = {}
-let idUsuario = 1//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
+let idUsuario = 2//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
 let idCarrito
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
@@ -69,7 +69,7 @@ document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
         const codseg = document.getElementById('codSeg').value
         tarjOK = tarjeta != "" && banco != "" && numTarjeta != "" && vto != "" && titular != "" && codseg != ""
     }
-    if (cantProd > 0 && tarjOK) {
+    if ((cantProd > 0 && medpag === "efectivo") || (cantProd > 0 && tarjOK)) {
         idCarrito = localStorage.getItem("idCarrito")
         const urlPUT = "http://localhost:8080/api/carts/" + idCarrito
         const cart = {
@@ -85,13 +85,32 @@ document.getElementById('btnConfirmaCompra').addEventListener('click', () => {
             data: JSON.stringify(cart),
             dataType: 'json',
         })
-        localStorage.clear()
+        Object.values(carrito).forEach(prod => {
+            const idcar = localStorage.getItem('idCarrito')
+            const p = {
+                "productId": { "id": prod.id },
+                "quantity": prod.cantidad,
+                "cartId": { "id": idcar }
+            }
+            $.ajax({
+                url: "http://localhost:8080/api/cartItems/",
+                contentType: 'application/json',
+                type: 'POST',
+                data: JSON.stringify(p),
+                dataType: 'json',
+            })
+        })
+        localStorage.removeItem('envio')
+        localStorage.removeItem('medioPago')
+        localStorage.removeItem('totalCompra')
+        localStorage.removeItem('carritoIsFinished')
+        localStorage.removeItem('idCarrito')
+        localStorage.removeItem('carrito')
         carrito = {}
         pintarCarrito()
         totalCompra = 0
         document.getElementById('totalCompraNav').innerHTML = `$ ${totalCompra}`
         swal("Bien hecho!", "La compra fue un éxito, en breve recibirá un email con los detalles. Gracias por elegir Gym Sales!", "success");
-        //window.open("../public/confirmaCompra.html", "_self");
     } else {
         swal("Por favor ingrese los datos requeridos para la compra con tarjetas")
     }

@@ -10,7 +10,7 @@ let carrito = {}//AL CARGAR LA PÁGINA ESTE ARRAY SE TIENE QUE CARGAR CON TODOS 
 let user = {}
 let idCarrito
 let isFinish
-let idUsuario = 1//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
+let idUsuario = 2//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dataType: 'json',
         success: function (res) {
             res.forEach(cart => {
-                if (cart.userId.id === 1) {
+                if (cart.userId.id === 2) {
                     localStorage.setItem("idCarrito", cart.id)
                     localStorage.setItem("carritoIsFinished", cart.deleted)
                 }
@@ -84,7 +84,7 @@ const fetchdata = async () => {
         const resUser = await fetch('http://localhost:8080/api/users/')
         const dataUser = await resUser.json()
         dataUser.forEach(u => {
-            if (u.id === 1) {//*********************SERÍA IF(IDQUEVIENEDELLOGIN === U.ID)**********************************
+            if (u.id === 2) {//*********************SERÍA IF(IDQUEVIENEDELLOGIN === U.ID)**********************************
                 user = {
                     "id": u.id,
                     "name": u.name,
