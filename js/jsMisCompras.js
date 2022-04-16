@@ -13,6 +13,7 @@ let idCarrito
 let isFinish
 let idUsuario = 2//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
 let ultimasCompras = {}
+let calProdComprados = {}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -63,12 +64,21 @@ const fetchdata = async () => {
         const dataPro = await resPro.json()
         const resCal = await fetch('http://localhost:8080/api/ratings')
         const dataCal = await resCal.json()
+        let count = 0
         dataCal.forEach(cal => {
             //RECOLECTAR TODOS LOS PRODUCTOS CALIFICADOS POR ESTE USER Y QUÉ CALIFICACION LE DIO. CON ESOS DATOS CARGAS LAS ESTRELLAS EN EL
             //PRODUCTO Y BLOQUEAR EL BOTON CALIFICAR
 
-            console.log(cal.productId.id)
-
+            //necesito iduser, idproducto, calificacion
+            u = JSON.parse(localStorage.getItem('usuario')).id
+            if (cal.userId.id === u) {
+                let valCal = {
+                    "rating": cal.value,
+                    "productId": cal.productId.id,
+                }
+                calProdComprados[count] = { ...valCal }
+                count++
+            }
         })
         idUsr = JSON.parse(localStorage.getItem('usuario')).id
         ultimasCompras = {}
@@ -91,14 +101,14 @@ const fetchdata = async () => {
 
 //DIBUJA LOS PRODUCTOS EN LA PÁGINA
 const pintarCards = (data) => {
-
     Object.values(data).forEach(producto => {
-        //HAY QUE REVISAR SI YA FUE CALIFICADO, MOSTRAR LAS ESTRELLAS DADAS Y DESHABILITAR BTNCALIFICAR
+
+
 
         templateCard.getElementById('titulo').textContent = producto.productId.name
         templateCard.getElementById('descripcion').textContent = producto.productId.description
-        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.productId.price
-        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.productId.promRate
+        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.productId.price.toFixed(2)
+        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.productId.promRate.toFixed(2)
         templateCard.getElementById('cantidad').textContent = "Cantidad: " + producto.quantity
         templateCard.querySelector('.btn-primary').dataset.id = producto.productId.id
         $("#1").attr("id", "1-" + producto.productId.id);
@@ -106,11 +116,10 @@ const pintarCards = (data) => {
         $("#3").attr("id", "3-" + producto.productId.id);
         $("#4").attr("id", "4-" + producto.productId.id);
         $("#5").attr("id", "5-" + producto.productId.id);
-        //templateCard.querySelector('img').setAttribute("src", producto.thumbnailUrl)
-        //FALTA LA FOTO
         const clone = templateCard.cloneNode(true)
         fragment.appendChild(clone)
         cards.appendChild(fragment)
+
     })
 }
 
@@ -150,6 +159,7 @@ const btnAccion = e => {
             dataType: 'json',
         })
         swal("Bien hecho!", "Tu calificación nos ayuda a orientar a otros clientes al decidir su compra.", "success");
+
     }
     e.stopPropagation()
 }

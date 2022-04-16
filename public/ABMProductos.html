@@ -82,6 +82,64 @@
         </div>
     </nav>
     <!-- ************************************ FIN NAV ************************************-->
+    <div class="row justify-content-center">
+        <div id="producto-detalle" class="text-center mt-5 p-2 col-md-4">
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-11 mt-5">
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titulo</th>
+                            <th>Desc.</th>
+                            <th>Precio</th>
+                            <th>Marca</th>
+                            <th>Cód. Barras</th>
+                            <th>Categoría</th>
+                            <th>Foto</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+            <div class="col-md-6 ml-auto" style="margin-top: 50px">
+                <div class="ml-5">
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="titulo" placeholder="Titulo">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="descripcion" placeholder="Descripción">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="precio" placeholder="Precio">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="marca" placeholder="Marca">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="codigoBarras"
+                            placeholder="Código de Barras">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="categoria" placeholder="Categoría">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="foto" placeholder="Foto">
+                    </div>
+                    <input type="hidden" id="id">
+                    <button id="agregar" class="btn btn-success btn-block">Agregar producto</button>
+                    <button id="editar" class="btn btn-success btn-block" style="display:none">Editar producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- ************************************ INICIO FOOTER ************************************-->

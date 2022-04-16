@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (localStorage.getItem("usuario")) {
         user = JSON.parse(localStorage.getItem("usuario"));
-        if (JSON.parse(localStorage.getItem('usuario')).id === 1) {
+        if (JSON.parse(localStorage.getItem('usuario')).id === 2) {
             admin.innerHTML = ''
             const clone = templateAdmin.cloneNode(true)
             fragment.appendChild(clone)
@@ -120,8 +120,8 @@ const pintarCards = (data) => {
         */
         templateCard.getElementById('titulo').textContent = producto.name
         templateCard.getElementById('descripcion').textContent = producto.description
-        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.price
-        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.promRate
+        templateCard.getElementById('precio').textContent = "Precio: $ " + producto.price.toFixed(2)
+        templateCard.getElementById('calificacion').textContent = "Calificacion: " + producto.promRate.toFixed(2)
         //templateCard.querySelector('img').setAttribute("src", producto.thumbnailUrl)
         //FALTA LA FOTO
         templateCard.querySelector('.btn-info').dataset.id = producto.id
