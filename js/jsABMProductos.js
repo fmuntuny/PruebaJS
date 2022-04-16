@@ -75,7 +75,7 @@ $(document).ready(() => {
         })
     }
 
-    const details = () => {
+    /*const details = () => {
         $(document).on('click', '#btn-details', function () {
             let btnDetails = $(this)[0].parentElement.parentElement
             let id = $(btnDetails).attr('productId')
@@ -83,7 +83,7 @@ $(document).ready(() => {
                 url: 
             })
         })
-    }
+    }*/
 
     const limpiar = () => {
         $('#titulo').val(''),
@@ -97,7 +97,7 @@ $(document).ready(() => {
 
 
 
-    details()
+    //details()
     list()
     save()
 })
