@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //CARGAMOS LAS CATEGORIAS DENTRO DEL NAV
-    let dataSelect = ''
+    let dataSelect = '<option value="0">Categorias</option>'
     $.ajax({
         url: 'http://localhost:8080/api/categories',
         type: 'GET',
@@ -69,8 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         success: function (res) {
             res.forEach(element => {
                 dataSelect += `
-                        <li><a class="dropdown-item" href="#">${element.name}</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <option value="${element.id}">${element.name}</option>
                     `
             });
             $('#dropCategoria').html(dataSelect);
@@ -90,10 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchdata()
 })
 
+
+$(document).on('change', '#dropCategoria', function (event) {
+    let ind = 0
+    resProductos = {}
+    const cat = $("#dropCategoria option:selected").val();
+    for (let producto of productos) {
+        let catProd = producto.categoryId.id
+        if (catProd == cat) {
+            resProductos[ind] = { ...producto }
+            ind++
+        }
+    }
+    if (cat === "0") {
+        document.getElementById('cards').innerHTML = ''
+        pintarCards(Object.values(productos))
+    } else {
+        document.getElementById('cards').innerHTML = ''
+        pintarCards(Object.values(resProductos))
+    }
+});
+
 const filtrar = () => {
+    resProductos = {}
     let ind = 0
     const texto = buscador.value.toLowerCase()
-    console.log(productos)
     for (let producto of productos) {
         let nombre = producto.name.toLowerCase()
         if (nombre.indexOf(texto) !== -1) {
@@ -101,9 +121,13 @@ const filtrar = () => {
             ind++
         }
     }
-    document.getElementById('cards').innerHTML = ''
-    pintarCards(Object.values(resProductos))
-
+    if (Object.values(resProductos).length === 0) {
+        document.getElementById('cards').innerHTML = ''
+        pintarCards(Object.values(productos))
+    } else {
+        document.getElementById('cards').innerHTML = ''
+        pintarCards(Object.values(resProductos))
+    }
 
 }
 btnBuscador.addEventListener('click', filtrar)

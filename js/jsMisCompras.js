@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (localStorage.getItem("usuario")) {
         user = JSON.parse(localStorage.getItem("usuario"));
-        if (JSON.parse(localStorage.getItem('usuario')).id === 1) {
+        if (JSON.parse(localStorage.getItem('usuario')).id === 2) {
             admin.innerHTML = ''
             const clone = templateAdmin.cloneNode(true)
             fragment.appendChild(clone)

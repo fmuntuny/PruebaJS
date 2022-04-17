@@ -8,7 +8,7 @@ const fragment = document.createDocumentFragment()
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem("usuario")) {
         user = JSON.parse(localStorage.getItem("usuario"));
-        if (JSON.parse(localStorage.getItem('usuario')).id === 1) {
+        if (JSON.parse(localStorage.getItem('usuario')).id === 2) {
             admin.innerHTML = ''
             const clone = templateAdmin.cloneNode(true)
             fragment.appendChild(clone)
@@ -76,7 +76,6 @@ $(document).ready(() => {
                 password: $('#password').val(),
                 roleId: { "id": Number($('#rol').val()) },
             }
-            console.log(dataProductos)
             $.ajax({
                 url: 'http://localhost:8080/api/users',
                 contentType: 'application/json',
@@ -134,45 +133,34 @@ $(document).ready(() => {
             let id = $('#id').val()
             $('#agregar').css('display', 'none')
             $('#editar').css('display', 'block')
-            const rol = $('#rol').val()
-            let dataUsuarios
+            let rol
+            if ($('#password').val() === "Admin") {
+                rol = 1
+            } else {
+                rol = 2
+            }
+            dataUsuarios = {
+                id: $('#id').val(),
+                name: $('#nombre').val(),
+                surname: $('#apellido').val(),
+                address: $('#direccion').val(),
+                cellPhone: Number($('#telefono').val()),
+                email: $('#email').val(),
+                password: $('#password').val(),
+                roleId: { "id": rol },
+            }
             $.ajax({
-                url: 'http://localhost:8080/api/users/',
-                type: 'GET',
+                url: 'http://localhost:8080/api/users/' + id,
+                contentType: 'application/json',
+                type: 'PUT',
+                data: JSON.stringify(dataUsuarios),
                 dataType: 'json',
                 success: function (res) {
-                    console.log(res)
-                    res.forEach(element => {
-                        if (element.roleId.name === rol) {
-                            console.log(element.roleId.id)
-                            dataUsuarios = {
-                                id: $('#id').val(),
-                                name: $('#nombre').val(),
-                                surname: $('#apellido').val(),
-                                address: $('#direccion').val(),
-                                cellPhone: Number($('#telefono').val()),
-                                email: $('#email').val(),
-                                password: $('#password').val(),
-                                roleId: { "id": Number(element.roleId.id) },
-                            }
-                        }
-                    });
-                    console.log(dataUsuarios)
-                    $.ajax({
-                        url: 'http://localhost:8080/api/users/' + id,
-                        contentType: 'application/json',
-                        type: 'PUT',
-                        data: JSON.stringify(dataUsuarios),
-                        dataType: 'json',
-                        success: function (res) {
-                            swal("Bien hecho!", "Usuario editado correctamente.", "success");
-                            $('#editar').css('display', 'none')
-                            $('#agregar').css('display', 'block')
-                            limpiar()
-                            listPro()
-                        }
-                    })
-
+                    swal("Bien hecho!", "Usuario editado correctamente.", "success");
+                    $('#editar').css('display', 'none')
+                    $('#agregar').css('display', 'block')
+                    limpiar()
+                    listPro()
                 }
             })
 
