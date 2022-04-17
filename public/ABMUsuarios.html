@@ -39,19 +39,7 @@
                         <a class="nav-link active" aria-current="page" href="../public/misCompras.html">Mis compras</a>
                     </li>
                     <li class="nav-item" id="adminSitio">
-                        <ul class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Administrar Sitio
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../public/ABMUsuarios.html">ABM Usuarios</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../public/ABMProductos.html">ABM Productos</a></li>
-                            </ul>
-                        </ul>
+
                     </li>
                 </ul>
                 <ul class="nav-item dropdown">
@@ -59,30 +47,81 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Categorías
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Suplementos</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Ropa y accesorios</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Fitness y Musculación</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropCategoria">
+
                     </ul>
                 </ul>
             </div>
-            <form class="d-flex">
 
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">
-                    Buscar
-                </button>
-            </form>
+
+            <input class="form-control me-2" id="buscador" type="text" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" id="btnBuscador">
+                Buscar
+            </button>
+
         </div>
     </nav>
     <!-- ************************************ FIN NAV ************************************-->
 
+    <!-- ************************************ INICIO CRUD ************************************-->
+    <div class="row justify-content-center">
+        <div id="producto-detalle" class="text-center mt-5 p-2 col-md-4">
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-11 mt-5">
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Rol</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+            <div class="col-md-6 ml-auto" style="margin-top: 50px">
+                <div class="ml-5">
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="apellido" placeholder="Apellido">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="direccion" placeholder="Direccion">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="telefono" placeholder="Telefono">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control font-italic" id="rol" placeholder="Rol">
+                    </div>
+                    <input type="hidden" id="id">
+                    <button id="agregar" class="btn btn-success btn-block">Agregar usuario</button>
+                    <button id="editar" class="btn btn-success btn-block" style="display:none">Editar usuario</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ************************************ FIN CRUD ************************************-->
 
     <!-- ************************************ INICIO FOOTER ************************************-->
     <footer class="pie-pagina">

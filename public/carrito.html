@@ -38,19 +38,7 @@
             <a class="nav-link active" aria-current="page" href="../public/misCompras.html">Mis compras</a>
           </li>
           <li class="nav-item" id="adminSitio">
-            <ul class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Administrar Sitio
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="../public/ABMUsuarios.html">ABM Usuarios</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="../public/ABMProductos.html">ABM Productos</a></li>
-              </ul>
-            </ul>
+
           </li>
         </ul>
         <ul class="nav-item dropdown">
@@ -58,26 +46,18 @@
             aria-expanded="false">
             Categorías
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Suplementos</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Ropa y accesorios</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Fitness y Musculación</a></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropCategoria">
+
           </ul>
         </ul>
       </div>
-      <form class="d-flex">
 
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success" type="submit">
-          Buscar
-        </button>
-      </form>
+
+      <input class="form-control me-2" id="buscador" type="text" placeholder="Search" aria-label="Search" />
+      <button class="btn btn-outline-success" id="btnBuscador">
+        Buscar
+      </button>
+
     </div>
   </nav>
   <!-- ************************************ FIN NAV ************************************-->

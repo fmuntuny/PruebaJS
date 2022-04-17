@@ -5,12 +5,19 @@ const templateAdmin = document.getElementById('template-admin').content
 const fragment = document.createDocumentFragment()
 const totalCompraNav = document.getElementById('totalCompraNav').textContent
 const btnTotalCompraNav = document.getElementById('totalCompraNav')
+const buscador = document.getElementById('buscador')
+const btnBuscador = document.getElementById('btnBuscador')
 let totalCompra = ""
 let carrito = {}//AL CARGAR LA PÁGINA ESTE ARRAY SE TIENE QUE CARGAR CON TODOS LOS PRODUCTOS DE LA INDEXEDDB DEL CLIENTE
 let user = {}
+let productos
+let resProductos = {}
 let idCarrito
 let isFinish
 let idUsuario = 2//CUANDO MICA TENGA EL LOGUEO TENGO QUE CAMBIAR ESTO
+
+
+
 
 //DETECTA QUE EL DOM ESTA CARGADO PARA PODER CARGAR LOS PRODUCTOS
 //EL "USUARIO" DEL LOCALSTORAGE DEBERÍA SER EL ID DEL USER PARA PODER TENER DIFERENTES CARRITOS DE USERS ALMACENADO
@@ -53,8 +60,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    //CARGAMOS LAS CATEGORIAS DENTRO DEL NAV
+    let dataSelect = ''
+    $.ajax({
+        url: 'http://localhost:8080/api/categories',
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+            res.forEach(element => {
+                dataSelect += `
+                        <li><a class="dropdown-item" href="#">${element.name}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    `
+            });
+            $('#dropCategoria').html(dataSelect);
+        }
+    })
+
+    //CARGAMOS LOS PRODUCTOS EN LA VARIABLE PRODUCTOS
+    $.ajax({
+        url: 'http://localhost:8080/api/products',
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+            productos = res
+        }
+    })
+
     fetchdata()
 })
+
+const filtrar = () => {
+    let ind = 0
+    const texto = buscador.value.toLowerCase()
+    console.log(productos)
+    for (let producto of productos) {
+        let nombre = producto.name.toLowerCase()
+        if (nombre.indexOf(texto) !== -1) {
+            resProductos[ind] = { ...producto }
+            ind++
+        }
+    }
+    document.getElementById('cards').innerHTML = ''
+    pintarCards(Object.values(resProductos))
+
+
+}
+btnBuscador.addEventListener('click', filtrar)
 
 //DETECTA EL CLIC EN EL BOTON DE LOS PRODUCTOS PARA AGREGARLOS AL CARRITO
 cards.addEventListener('click', e => {
@@ -106,18 +158,6 @@ const fetchdata = async () => {
 //DIBUJA LOS PRODUCTOS EN LA PÁGINA
 const pintarCards = (data) => {
     data.forEach(producto => {
-        /*
-         {   
-        "name": "Remera Nike Air Blanca",
-        "description": "Remera 100% algodon",
-        "price": 3500,
-        "brand": "Nike",
-        "barcode": 15645641321321564564321321,
-        "stock": 15,
-        "categoryId": {"id": 1},
-        "photoId": {"id": 1}
-        }
-        */
         templateCard.getElementById('titulo').textContent = producto.name
         templateCard.getElementById('descripcion').textContent = producto.description
         templateCard.getElementById('precio').textContent = "Precio: $ " + producto.price.toFixed(2)
