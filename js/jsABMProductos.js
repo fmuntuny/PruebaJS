@@ -15,22 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             admin.appendChild(fragment)
         }
     }
-    //CARGAMOS LAS CATEGORIAS DENTRO DEL NAV
-    let dataSelect = ''
-    $.ajax({
-        url: 'http://localhost:8080/api/categories',
-        type: 'GET',
-        dataType: 'json',
-        success: function (res) {
-            res.forEach(element => {
-                dataSelect += `
-                        <li><a class="dropdown-item" href="#">${element.name}</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                    `
-            });
-            $('#dropCategoria').html(dataSelect);
-        }
-    })
+
 
 
 })
@@ -67,6 +52,25 @@ $(document).ready(() => {
     //METODO GUARDAR PRODUCTO
     const savePro = () => {
         $('#agregar').on('click', function () {
+
+            //SUBIMOS LA FOTO http://localhost:8080/photos/upload
+            var formData1 = new FormData($('#formSubirFoto')[0]);
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost:8080/photos/upload',
+                cache: false,
+                data: formData1,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function (datos) {
+                    console.log(datos)
+                }
+            });
+
+            //DESPUÉS DE SUBIR EXITOSAMENTE LA FOTO TIENE QUE OBTENER SU ID PARA PASARSELO AL PRODUCTO
+            //EN EL PHOTOID.ID
+
             const dataProductos = {
                 name: $('#titulo').val(),
                 description: $('#descripcion').val(),
@@ -88,6 +92,7 @@ $(document).ready(() => {
                     swal("Bien hecho!", "Tu producto se dió de alta correctamente.", "success");
                 }
             })
+
         })
     }
 

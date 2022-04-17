@@ -181,7 +181,9 @@ const fetchdata = async () => {
 
 //DIBUJA LOS PRODUCTOS EN LA PÁGINA
 const pintarCards = (data) => {
+
     data.forEach(producto => {
+        console.log(producto)
         templateCard.getElementById('titulo').textContent = producto.name
         templateCard.getElementById('descripcion').textContent = producto.description
         templateCard.getElementById('precio').textContent = "Precio: $ " + producto.price.toFixed(2)

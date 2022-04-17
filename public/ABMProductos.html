@@ -39,7 +39,6 @@
                         <a class="nav-link active" aria-current="page" href="../public/misCompras.html">Mis compras</a>
                     </li>
                     <li class="nav-item" id="adminSitio">
-
                     </li>
                 </ul>
             </div>
@@ -96,13 +95,27 @@
                         <select class="form-control font-italic" id="catSelect"></select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control font-italic" id="foto" placeholder="Foto">
+                        <div>
+                            <form action="" name="formSubirFoto" id="formSubirFoto" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-sm-6 text-right">
+                                        <input name="fotoArchivo" id="fotoArchivo" type="file"
+                                            class="form-control input-sm" style="padding: 0px; border: 0px;">
+                                    </div>
+                                    <div class="col-sm-6 text-left">
+                                        <button class="btn btn-secondary btn-sm btn-block" type="button" id="btnSubir">
+                                            Subir</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <input type="hidden" id="id">
                     <button id="agregar" class="btn btn-success btn-block">Agregar producto</button>
                     <button id="editar" class="btn btn-success btn-block" style="display:none">Editar producto</button>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- ************************************ FIN CRUD ************************************-->

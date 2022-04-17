@@ -51,22 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem("medioPago")) {
         localStorage.setItem("medioPago", "efectivo")
     }
-    //CARGAMOS LAS CATEGORIAS DENTRO DEL NAV
-    let dataSelect = ''
-    $.ajax({
-        url: 'http://localhost:8080/api/categories',
-        type: 'GET',
-        dataType: 'json',
-        success: function (res) {
-            res.forEach(element => {
-                dataSelect += `
-                        <li><a class="dropdown-item" href="#">${element.name}</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                    `
-            });
-            $('#dropCategoria').html(dataSelect);
-        }
-    })
     pintarCarrito()
 })
 

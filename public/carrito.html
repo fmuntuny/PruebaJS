@@ -41,58 +41,75 @@
 
           </li>
         </ul>
-        <ul class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Categorías
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropCategoria">
-
-          </ul>
-        </ul>
-      </div>
-
-
-      <input class="form-control me-2" id="buscador" type="text" placeholder="Search" aria-label="Search" />
-      <button class="btn btn-outline-success" id="btnBuscador">
-        Buscar
-      </button>
-
-    </div>
-  </nav>
-  <!-- ************************************ FIN NAV ************************************-->
-
-  <!-- ************************************ INICIO NAV ************************************-->
-
-  <nav class="navbar navbar-expand-lg navbar navbar-light sticky-top" style="background-color: #7fffd4" alt="1200px">
-    <div class="container-fluid">
-      <a href="../index.html"><img src="../img/Logo.png" width="60px" /></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <ul class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/public/carrito.html"><img img src="../img/carrito.png"
-            width="30px" /><b id="totalCompraNav">$0</b></a>
-      </ul>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../public/login.html">Inicia Sesion</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../public/misCompras.html">Mis compras</a>
-          </li>
-          <li class="nav-item" id="adminSitio">
-
-          </li>
-        </ul>
       </div>
     </div>
   </nav>
   <!-- ************************************ FIN NAV ************************************-->
+
+  <!-- ************************************ INICIO CARRITO ************************************-->
+  <div class="container">
+    <h1>Detalle del carrito</h1>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">$</th>
+          <th scope="col">Cant.</th>
+          <th scope="col">Acción</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody id="items"></tbody>
+      <tfoot>
+        <tr id="footer">
+          <th scope="row" colspan="5"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="container" id="footer-envio"></div>
+  <div class="container" id="footer-medio-pago"></div>
+  <div class="container" id="container-envio">
+    <h3>Seleccione el tipo de envio: <button class="btn btn-info btn-sm" id="btnConfirmaCompra"> Confirmar
+        compra</button></h3>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioLocal" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Retiro por el local (Av. Libertador 1567, CABA)
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoEnvio" id="tipoEnvioDomicilio">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Quiero que me lo envíen a mi domicilio
+      </label>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <h3>Seleccione el tipo tipo de pago:</h3>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoEfectivo" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Efectivo
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoDebito">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Tarjeta de débito
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="tipoPago" id="tipoPagoCredito">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Tarjeta de crédito
+      </label>
+    </div>
+  </div>
+  <!-- ************************************ FIN CARRITO ************************************-->
 
   <!-- ************************************ INICIO FOOTER ************************************-->
   <footer class="pie-pagina">
